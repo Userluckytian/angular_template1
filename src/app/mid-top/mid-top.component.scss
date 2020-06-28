@@ -1,0 +1,39 @@
+.mid_up_component{
+    border-radius: 5px;
+    .title{
+        
+        background-color: #FFFFFF;
+        height: 50px;
+        padding: 0px 30px;
+        width: 840px;
+        font-size: 14px;
+        line-height: 50px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        
+        .title_left::before{
+            content:'\260E';
+            font-size: 15px;
+            margin-right: 3px; 
+        }
+
+        .title_right{
+            .chooseitem{
+                height: 32px;
+                width: 90px;
+                cursor: pointer;
+                outline: 0;
+                box-sizing: border-box;
+                background-color: #fff;
+                border-radius: 4px;
+                border: 1px solid #d9d9d9;
+                .chooseitem_style{
+                    padding: 10px;
+                    font-size: 14px;
+                    color: #C0BFBF;
+                }
+            }
+        }
+    }
+}
