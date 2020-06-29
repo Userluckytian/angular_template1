@@ -36,7 +36,6 @@ export class RightComponent implements OnInit {
     
     chart.data(data);
     chart.scale('sales', {
-      nice: true,
     });
     
     chart.tooltip({

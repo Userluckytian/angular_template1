@@ -1,0 +1,16 @@
+<div class="right_top_content">
+  <div class="title"></div>
+  <div class="content">
+    <div class="content_title">
+      <div id="left">产业</div>
+      <div id="mid">数量（家）</div>
+      <div id="right">产值（亿元）</div>
+    </div>
+    <div class="content_content" *ngFor="let item of array">
+       <!-- 三个div，第一个单行文本显示，第二个和第三个类似，设置填充颜色和  -->
+       <div id="content_content_left" title="{{item}}">这里是标题这里是标题这里</div>
+       <div id="content_content_mid">16</div>
+       <div id="content_content_right">1358</div>
+    </div>
+  </div>
+</div>

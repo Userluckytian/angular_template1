@@ -54,10 +54,8 @@ export class RightBottomComponent implements OnInit {
     chart.data(data);
     chart.scale('year', {
       type: 'linear',
-      tickInterval: 50,
     });
     chart.scale('value', {
-      nice: true,
     });
     
     chart.tooltip({
