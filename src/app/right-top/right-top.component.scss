@@ -1,9 +1,22 @@
 .right_top_content{
-    padding: 0px 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 0 20px;
     .title{
         height: 50px;
+        line-height: 50px;
+        margin: 0 auto;
+        font-size: 14px;
+        font-weight: bold;
     }
+    .title::before{
+        content:'\260E';
+        font-size: 15px;
+        margin-right: 5px;
+    }
+
     .content{
+        height: 262px;
         .content_title{
                 display: flex;
                 font-size: 14px;
@@ -33,10 +46,19 @@
                 white-space: nowrap;
             }
             #content_content_mid{
+                display: flex;
+                justify-content: flex-end;
                 width: 33%;
                 margin: 0px 5px;
                 background-color: linear-gradient(#2465F1, #59DAFA);
-                background-color: #59DAFA;
+                
+                .downfive{
+                    
+                }
+                #downfive111{
+                    height: 100%;
+                    background-color: #59DAFA;
+                }
             }
             #content_content_right{
                 width: 33%;
