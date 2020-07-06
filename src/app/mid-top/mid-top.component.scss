@@ -1,11 +1,12 @@
 .mid_up_component{
+    border: #979797 1px solid; 
     border-radius: 5px;
-    .title{
-        
+    .title{ 
+        border-radius:5px 5px 0px 0px;
         background-color: #FFFFFF;
         height: 50px;
         padding: 0px 30px;
-        width: 840px;
+        width: 837px;
         font-size: 14px;
         line-height: 50px;
         margin: 0 auto;
@@ -35,5 +36,10 @@
                 }
             }
         }
+    }
+    #home_map{
+        border-radius:0px 0px 5px 5px;
+        height: 584px;
+        z-index: 99999;
     }
 }

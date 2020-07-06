@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { RightComponent } from './right/right.component';
 import { RightBottomComponent } from './right-bottom/right-bottom.component';
 import { RightTopComponent } from './right-top/right-top.component';
+import { LeftMidComponent } from './left-mid/left-mid.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { RightTopComponent } from './right-top/right-top.component';
     MidTopComponent,
     RightComponent,
     RightBottomComponent,
-    RightTopComponent
+    RightTopComponent,
+    LeftMidComponent
 ],
   imports: [
     BrowserModule,
