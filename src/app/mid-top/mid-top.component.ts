@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 // 引入地图服务需要载入的包(必须要存在的四要素+css)
 import 'ol/ol.css';
@@ -10,7 +10,7 @@ import View from 'ol/View';
 import TileArcGISRest from 'ol/source/TileArcGISRest';
 // 构建弹出框
 import Overlay from 'ol/Overlay';
-import { toStringHDMS } from 'ol/coordinate';
+import { toStringXY } from 'ol/coordinate';
 import { fromLonLat, toLonLat } from 'ol/proj';
 // 平滑矢量曲线（外加控制用户点击时才执行，双击界面绘制完成。关闭绘制）
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
@@ -20,14 +20,15 @@ import smooth from 'chaikin-smooth';
 // 鼠标点位
 import MousePosition from 'ol/control/MousePosition';
 import { createStringXY } from 'ol/coordinate';
-import {defaults as defaultControls} from 'ol/control';
+import { defaults as defaultControls } from 'ol/control';
+import { Coordinate } from '@antv/g2/lib/dependents';
 
 @Component({
   selector: 'app-mid-top',
   templateUrl: './mid-top.component.html',
   styleUrls: ['./mid-top.component.scss']
 })
-export class MidTopComponent implements OnInit {
+export class MidTopComponent implements OnInit, AfterViewInit {
 
   constructor() {
 
@@ -39,10 +40,10 @@ export class MidTopComponent implements OnInit {
   view = new View({
     Reference: 'ESPG:4326',
     center: [12588621.3142, 3281288.7502],
-    zoom: 8,
+    zoom: 4,
   });
   layers = [];
-  // tslint:disable-next-line: variable-name
+  // tslint:disable-next-line: letiable-name
   private initlayers_num = 0;
   private url = 'http://192.168.2.43:6080/arcgis/rest/services/CS/CS_BaseMap/MapServer';
 
@@ -133,9 +134,6 @@ export class MidTopComponent implements OnInit {
     let mousePositionControl = new MousePosition({
       coordinateFormat: createStringXY(4),
       projection: 'EPSG:4326',
-      // comment the following two lines to have the mouse position
-      // be placed within the map.
-      // className: 'custom-mouse-position',
       target: document.getElementById('mouse-position'),
       undefinedHTML: '&nbsp;'
     });
@@ -162,5 +160,21 @@ export class MidTopComponent implements OnInit {
     }
   }
 
-  // 
+  // 信息展示框
+  ngAfterViewInit() {
+    // 获取div框
+    const container = document.getElementById('popup');
+
+    let overlay = new Overlay({
+      element: container
+    });
+
+    this.map.on('singleclick', function (evt) {
+      let coordinate = evt.coordinate;
+      let hdms = toStringXY(toLonLat(coordinate, 'EPSG:3857'), 4);
+      container.innerHTML = '<code>' + hdms + '</code>';
+      overlay.setPosition(coordinate);
+    });
+    this.map.addOverlay(overlay);
+  }
 }
