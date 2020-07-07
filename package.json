@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~9.1.11",
     "@angular/router": "~9.1.11",
     "@antv/g2": "^4.0.12",
+    "chaikin-smooth": "^1.0.4",
     "insert-css": "^2.0.0",
     "ol": "^5.3.3",
     "rxjs": "~6.5.4",

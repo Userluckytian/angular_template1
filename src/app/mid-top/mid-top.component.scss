@@ -40,6 +40,45 @@
     #home_map{
         border-radius:0px 0px 5px 5px;
         height: 584px;
-        z-index: 99999;
+        position: relative;
+        .draw_button{
+            width: 30px;
+            height: 30px;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 6px;
+            border-width: 1px;
+            z-index: 9999;
+            position: absolute;
+        }
     }
+}
+// 回归中心点
+#button1{
+    background-image: url(../../assets/img/logo1.png);
+    top: 15px;
+    left: 15px;
+}
+// 开启绘制功能
+#button2{
+    background-image: url(../../assets/img/mozilla-firefox-nightly.png);
+    background-size: 20px;
+    top: 50px;
+    left: 15px;
+}
+// 清空绘制
+#button3{
+    background-image: url(../../assets/img/mozilla-firefox-nightly.png);
+    background-size: 20px;
+    top: 85px;
+    left: 15px;
+}
+// 添加坐标信息
+#mouse-position{
+    position: absolute;
+    z-index: 9999;
+    height: 20px;
+    width: 100%;
+    left: 0px;
+    bottom: 0px;
 }
