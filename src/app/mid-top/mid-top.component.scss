@@ -61,14 +61,14 @@
 }
 // 开启绘制功能
 #button2{
-    background-image: url(../../assets/img/mozilla-firefox-nightly.png);
+    background-image: url(../../assets/img/mozilla-thunderbird-earlybird.png);
     background-size: 20px;
     top: 50px;
     left: 15px;
 }
 // 清空绘制
 #button3{
-    background-image: url(../../assets/img/mozilla-firefox-nightly.png);
+    background-image: url(../../assets/img/mozilla-thunderbird-daily.png);
     background-size: 20px;
     top: 85px;
     left: 15px;
@@ -92,4 +92,21 @@
     color: #FFFFFF;
     font-size: 14px;
     font-weight: bold;
+    margin-top: -35px;
+    margin-left: -30px;
 }
+
+//对话框的三角箭头
+.ol-popup:before {
+    // top: 100%;//等价于在底部的下面
+    border: 5px solid #3c3c3c;
+    content: '';//没作用，但是要存在
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    transform: rotate(45deg);
+    bottom: 8.5px;
+    margin-left: 15.3px;
+    z-index: -999;
+  }
