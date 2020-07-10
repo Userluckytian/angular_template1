@@ -22,6 +22,11 @@ import MousePosition from 'ol/control/MousePosition';
 import { createStringXY } from 'ol/coordinate';
 import { defaults as defaultControls } from 'ol/control';
 import { Coordinate } from '@antv/g2/lib/dependents';
+// 测量面积和距离
+import { unByKey } from 'ol/Observable';
+import { getArea, getLength } from 'ol/sphere';
+import { LineString, Polygon } from 'ol/geom';
+import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
 
 @Component({
   selector: 'app-mid-top',
@@ -30,21 +35,26 @@ import { Coordinate } from '@antv/g2/lib/dependents';
 })
 export class MidTopComponent implements OnInit, AfterViewInit {
 
-  constructor() {
-
-  }
+  constructor() { }
 
   radioValue = 'A';
+  // 地图
+  map: any;
+  // 放图层
+  layers = [];
+  draw: any;
+  // 初始化图层数量为0
+  // tslint:disable-next-line: letiable-name
+  initlayers_num = 0;
 
-  map;
+  // 全局加入矢量
+  vectorSource = new VectorSource();
   view = new View({
     Reference: 'ESPG:4326',
     center: [12588621.3142, 3281288.7502],
     zoom: 4,
   });
-  layers = [];
-  // tslint:disable-next-line: letiable-name
-  private initlayers_num = 0;
+
   private url = 'http://192.168.2.43:6080/arcgis/rest/services/CS/CS_BaseMap/MapServer';
 
   change() {
@@ -72,7 +82,7 @@ export class MidTopComponent implements OnInit, AfterViewInit {
   }
 
   // 平滑曲线
-  makeSmooth(path, numIterations) {
+  makeSmooth(path: any, numIterations: number) {
     numIterations = Math.min(Math.max(numIterations, 1), 10);
     while (numIterations > 0) {
       path = smooth(path);
@@ -83,12 +93,10 @@ export class MidTopComponent implements OnInit, AfterViewInit {
 
   // 绘制曲线并平滑
   drawSmooth() {
-    // 矢量加入
-    const vectorSource = new VectorSource({});
 
     // 绘图
-    const draw = new Draw({
-      source: vectorSource,
+    this.draw = new Draw({
+      source: this.vectorSource,
       type: 'LineString'
     });
 
@@ -96,14 +104,14 @@ export class MidTopComponent implements OnInit, AfterViewInit {
     this.map.addLayer(
       // 矢量图
       new VectorLayer({
-        source: vectorSource
+        source: this.vectorSource
       }));
 
     // 将给定的互动添加到地图中。
-    this.map.addInteraction(draw);
+    this.map.addInteraction(this.draw);
 
     // draw.on(type:string, listener):以下是，用户在draw结束的时候，执行如下事件：
-    draw.on('drawend', (event) => {
+    this.draw.on('drawend', (event: { feature: any; }) => {
 
       // 获取构造的要素
       const feat = event.feature;
@@ -111,7 +119,7 @@ export class MidTopComponent implements OnInit, AfterViewInit {
       const coords = geometry.getCoordinates();
       const smoothened = this.makeSmooth(coords, 5);  // parseInt(numIterations.value, 10) || 5);
       geometry.setCoordinates(smoothened);
-      draw.setActive(false);
+      this.draw.setActive(false);
     });
 
   }
@@ -119,9 +127,15 @@ export class MidTopComponent implements OnInit, AfterViewInit {
 
   // 根据openlayer的写法，建议将map，view，layers三部分分开写，并在最初的时候就先定义出来，这样有利于后期方法的使用。
   reset() {
-    this.view.setCenter([12588621.3142, 3281288.7502]);
-
-    this.view.setZoom(8);
+    // 方法一（无动画效果）：
+    // this.view.setCenter([12588621.3142, 3281288.7502]);
+    // this.view.setZoom(8);
+    // 方法二(动画效果)：
+    this.view.animate(
+      { center: [12588621.3142, 3281288.7502] },
+      { duration: 5000 },
+      { easing: 0.2 }
+    );
   }
 
   // 加载地图
@@ -165,16 +179,25 @@ export class MidTopComponent implements OnInit, AfterViewInit {
     // 获取div框
     const container = document.getElementById('popup');
 
-    let overlay = new Overlay({
+    const overlay = new Overlay({
       element: container
     });
 
-    this.map.on('singleclick', function (evt) {
-      let coordinate = evt.coordinate;
-      let hdms = toStringXY(toLonLat(coordinate, 'EPSG:3857'), 4);
+    // tslint:disable-next-line: only-arrow-functions
+    this.map.on('singleclick', function (evt: { coordinate: any; }) {
+      const coordinate = evt.coordinate;
+      const hdms = toStringXY(toLonLat(coordinate, 'EPSG:3857'), 4);
       container.innerHTML = '<code>' + hdms + '</code>';
       overlay.setPosition(coordinate);
     });
     this.map.addOverlay(overlay);
+  }
+
+
+  measureArea() {
+
+  }
+  measureDistance() {
+
   }
 }
