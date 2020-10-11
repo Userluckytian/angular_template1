@@ -21,8 +21,8 @@ import { LeftMidComponent } from './left-mid/left-mid.component';
     RightComponent,
     RightBottomComponent,
     RightTopComponent,
-    LeftMidComponent
-],
+    LeftMidComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

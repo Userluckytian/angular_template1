@@ -35,6 +35,17 @@ import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
 })
 export class MidTopComponent implements OnInit, AfterViewInit {
 
+  // -===========================yi=======================================
+  sketch;
+  helpTooltipElement;
+  helpTooltip;
+  measureTooltipElement;
+  measureTooltip;
+  continuePolygonMsg = 'Click to continue drawing the polygon';
+  continueLineMsg = 'Click to continue drawing the line';
+
+  // -+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
   constructor() { }
 
   radioValue = 'A';
@@ -47,8 +58,6 @@ export class MidTopComponent implements OnInit, AfterViewInit {
   // tslint:disable-next-line: letiable-name
   initlayers_num = 0;
 
-  // 全局加入矢量
-  vectorSource = new VectorSource();
   view = new View({
     Reference: 'ESPG:4326',
     center: [12588621.3142, 3281288.7502],
@@ -94,9 +103,12 @@ export class MidTopComponent implements OnInit, AfterViewInit {
   // 绘制曲线并平滑
   drawSmooth() {
 
+    // 全局加入矢量
+    const vectorSource = new VectorSource();
+
     // 绘图
     this.draw = new Draw({
-      source: this.vectorSource,
+      source: vectorSource,
       type: 'LineString'
     });
 
@@ -104,7 +116,7 @@ export class MidTopComponent implements OnInit, AfterViewInit {
     this.map.addLayer(
       // 矢量图
       new VectorLayer({
-        source: this.vectorSource
+        source: vectorSource
       }));
 
     // 将给定的互动添加到地图中。
@@ -194,10 +206,188 @@ export class MidTopComponent implements OnInit, AfterViewInit {
   }
 
 
+
+  // 公共方法
+  createHelpTooltip() {
+    if (this.helpTooltipElement) {
+      this.helpTooltipElement.parentNode.removeChild(this.helpTooltipElement);
+    }
+    this.helpTooltipElement = document.createElement('div');
+    this.helpTooltipElement.className = 'ol-tooltip hidden';
+    this.helpTooltip = new Overlay({
+      element: this.helpTooltipElement,
+      offset: [15, 0],
+      positioning: 'center-left'
+    });
+    this.map.addOverlay(this.helpTooltip);
+
+    this.map.on('pointermove', function(evt) {
+      if (evt.dragging) {
+        return;
+      }
+      let helpMsg = 'Click to start drawing';
+
+      if (this.sketch) {
+        let geom = this.sketch.getGeometry();
+        if (geom instanceof Polygon) {
+          helpMsg = this.continuePolygonMsg;
+        } else if (geom instanceof LineString) {
+          helpMsg = this.continueLineMsg;
+        }
+      }
+
+      this.helpTooltipElement.innerHTML = helpMsg;
+      this.helpTooltip.setPosition(evt.coordinate);
+
+      this.helpTooltipElement.classList.remove('hidden');
+    });
+  }
+
+  createMeasureTooltip() {
+    if (this.measureTooltipElement) {
+      this.measureTooltipElement.parentNode.removeChild(this.measureTooltipElement);
+    }
+    this.measureTooltipElement = document.createElement('div');
+    this.measureTooltipElement.className = 'ol-tooltip ol-tooltip-measure';
+    this.measureTooltip = new Overlay({
+      element: this.measureTooltipElement,
+      offset: [0, -15],
+      positioning: 'bottom-center'
+    });
+    this.map.addOverlay(this.measureTooltip);
+  }
+
+  // 添加监听
+  // 第一步执行：添加交互(在我点击按钮后，我相当于新建了一个draw和点击平滑按钮新建一个new draw有冲突吗？我不清楚)
+  addInteraction() {
+    let listener;
+    this.draw.on('drawstart', function (evt) {
+      // set sketch
+      this.sketch = evt.feature;
+
+      let tooltipCoord = evt.coordinate;
+
+      listener = this.sketch.getGeometry().on('change', function (evt) {
+        let geom = evt.target;
+        let output;
+
+        output = this.formatArea(geom);
+        tooltipCoord = geom.getInteriorPoint().getCoordinates();
+
+        this.measureTooltipElement.innerHTML = output;
+        this.measureTooltip.setPosition(tooltipCoord);
+      });
+    });
+
+    this.draw.on('drawend',
+      function () {
+        this.measureTooltipElement.className = 'ol-tooltip ol-tooltip-static';
+        this.measureTooltip.setOffset([0, -7]);
+        // unset sketch
+        this.sketch = null;
+        // unset tooltip so that a new one can be created
+        this.measureTooltipElement = null;
+        this.createMeasureTooltip();
+        unByKey(listener);
+        this.draw.setActive(false);
+      });
+  }
+
+  // 格式化面积的显示方式
+  formatArea(polygon) {
+    let area = getArea(polygon);
+    let output;
+    if (area > 10000) {
+      output = (Math.round(area / 1000000 * 100) / 100) +
+        ' ' + 'km<sup>2</sup>';
+    } else {
+      output = (Math.round(area * 100) / 100) +
+        ' ' + 'm<sup>2</sup>';
+    }
+    return output;
+  }
+
   measureArea() {
+    /**
+     * 先说你可以绘制了
+     * 先判断类型！
+     * 开始绘制draw
+     * 加入地图
+     * 开始创建dom元素
+     * 添加监听
+     * 
+    */
+    
+    // // 每次创建都需要写(new VectorLayer,new VectorSource)，
+    // // 不能定义在全局，定义全局的结果就是一共只创建了一个图层,或者一个Resource！！！。
+    // // 我们要的结果是每次绘制都算是一个图层！！！
+    let areasource = new VectorSource();
+
+    // // 样式需要多次利用的时候可以定义出去！
+    // let vector = new VectorLayer({
+    //   source: areasource,
+    //   style: new Style({
+    //     fill: new Fill({
+    //       color: 'rgba(255, 255, 255, 0.2)'
+    //     }),
+    //     stroke: new Stroke({
+    //       color: '#ffcc33',
+    //       width: 2
+    //     }),
+    //     image: new CircleStyle({
+    //       radius: 7,
+    //       fill: new Fill({
+    //         color: '#ffcc33'
+    //       })
+    //     })
+    //   })
+    // });
+
+    // let type = 'Polygon';
+    this.draw = new Draw({
+      source: areasource,
+      type: 'Polygon',
+      style: new Style({
+        fill: new Fill({
+          color: 'rgba(255, 255, 255, 0.2)'
+        }),
+        stroke: new Stroke({
+          color: 'rgba(0, 0, 0, 0.5)',
+          lineDash: [10, 10],
+          width: 2
+        }),
+        image: new CircleStyle({
+          radius: 5,
+          stroke: new Stroke({
+            color: 'rgba(0, 0, 0, 0.7)'
+          }),
+          fill: new Fill({
+            color: 'rgba(255, 255, 255, 0.2)'
+          })
+        })
+      })
+    });
+
+    // 不要一直绘制
+    this.map.addInteraction(this.draw);
+
+    // 先创建html标签
+    this.createMeasureTooltip();
+    this.createHelpTooltip();
+    
+    // 添加监听
+    this.addInteraction();
+
+    // 在地图的view窗体内添加监听事件，如果移除去，则不显示提示信息
+    this.map.getViewport().addEventListener('mouseout', function () {
+      this.helpTooltipElement.classList.add('hidden');
+    });
+
+    // 添加本次绘制，不适用全局绘制，这样在点击完成后。。。。。。逻辑上是不是要添加全局绘制信息呢？
+    // 因此这里不再声明绘制draw，下面均使用this.draw。
 
   }
   measureDistance() {
-
+    this.map.removeInteraction(this.draw);
   }
 }
