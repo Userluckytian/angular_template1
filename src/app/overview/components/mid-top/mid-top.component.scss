@@ -48,28 +48,28 @@
             background-position: center;
             border-radius: 6px;
             border-width: 1px;
-            z-index: 9999;
+            z-index: 999;
             position: absolute;
         }
     }
 }
 // 回归中心点
 #button1{
-    background-image: url(../../assets/img/logo1.png);
+    background-image: url('~/assets/img/logo1.png');
     top: 15px;
     left: 15px;
     opacity: 80%;
 }
 // 开启绘制功能
 #button2{
-    background-image: url(../../assets/img/mozilla-thunderbird-earlybird.png);
+    background-image: url('~/assets/img/mozilla-thunderbird-earlybird.png');
     background-size: 20px;
     top: 50px;
     left: 15px;
 }
 // 清空绘制
 #button3{
-    background-image: url(../../assets/img/mozilla-thunderbird-daily.png);
+    background-image: url('~/assets/img/mozilla-thunderbird-daily.png');
     background-size: 20px;
     top: 85px;
     left: 15px;
@@ -77,14 +77,14 @@
 }
 // 测量面积
 #button4{
-    background-image: url(../../assets/img/mozilla-thunderbird-daily.png);
+    background-image: url('~/assets/img/mozilla-thunderbird-daily.png');
     background-size: 20px;
     top: 120px;
     left: 15px;
 }
 // 测量距离
 #button5{
-    background-image: url(../../assets/img/mozilla-thunderbird-daily.png);
+    background-image: url('~/assets/img/mozilla-thunderbird-daily.png');
     background-size: 20px;
     top: 155px;
     left: 15px;
