@@ -11,9 +11,10 @@ import { RightComponent } from './right/right.component';
 import { RightBottomComponent } from './right-bottom/right-bottom.component';
 import { RightTopComponent } from './right-top/right-top.component';
 import { LeftMidComponent } from './left-mid/left-mid.component';
+import { LeftBottomComponent } from './left-bottom/left-bottom.component';
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     LeftUpComponent,
     MidBottomComponent,
@@ -22,7 +23,8 @@ import { LeftMidComponent } from './left-mid/left-mid.component';
     RightBottomComponent,
     RightTopComponent,
     LeftMidComponent,
-  ],
+      LeftBottomComponent
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
