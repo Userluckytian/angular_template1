@@ -12,6 +12,7 @@ import { RightBottomComponent } from './right-bottom/right-bottom.component';
 import { RightTopComponent } from './right-top/right-top.component';
 import { LeftMidComponent } from './left-mid/left-mid.component';
 import { LeftBottomComponent } from './left-bottom/left-bottom.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,12 +24,13 @@ import { LeftBottomComponent } from './left-bottom/left-bottom.component';
     RightBottomComponent,
     RightTopComponent,
     LeftMidComponent,
-      LeftBottomComponent
+    LeftBottomComponent
    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

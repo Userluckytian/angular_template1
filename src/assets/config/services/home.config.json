@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "code": 200,
+    "msg": "操作成功"
+  },
+  "data": [
+    {
+      "id": "query.property",
+      "des": "属性信息",
+      "url": "/FHOneMapser/api/test/pipeline/PropertyQuery",
+      "queryParams": [
+        {
+          "key": "PageSize"
+        },
+        {
+          "key": "PageNo"
+        }
+      ]
+    },
+    {
+      "id": "query.geometry",
+      "des": "空间信息查询",
+      "url": "/FHOneMapser/api/test/pipeline/PositionQuery"
+    },
+    {
+      "id": "query.detail",
+      "des": "详情",
+      "url": "/FHOneMapser/api/test/pipeline/DetailQuery",
+      "queryParams": [
+        {
+          "key": "layerId"
+        },
+        {
+          "key": "objId"
+        }
+      ]
+    },
+    {
+      "id": "query.condition",
+      "des": "获取查询条件",
+      "url": "/FHOneMapser/api/test/pipeline/InputSchema",
+      "queryParams": [
+        {
+          "key": "layerId"
+        }
+      ]
+    },
+    {
+      "id": "query.dynamic",
+      "des": "动态属性查询",
+      "url": "/FHOneMapser/api/test/pipeline/DynamicPropertyQuery",
+      "queryParams": [
+        {
+          "key": "PageSize"
+        },
+        {
+          "key": "PageNo"
+        }
+      ]
+    },
+    {
+      "id": "query.layers",
+      "des": "查询图层列表",
+      "url": "/FHOneMapser/api/test/pipeline/LayerListQuery",
+      "queryParams": [
+      ]
+    }
+  ]
+}

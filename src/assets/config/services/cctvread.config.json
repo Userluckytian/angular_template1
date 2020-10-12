@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "code": 200,
+    "msg": "操作成功"
+  },
+  "data": [
+    {
+      "id": "land.list",
+      "des": "路段列表",
+      "url": "/FHOneMapser/api/test/pipeline/ListOfDetectionWayQuery",
+      "queryParams": [
+        {
+          "key": "pageSize"
+        },
+        {
+          "key": "pageNo"
+        },
+        {
+          "key": "keyword"
+        }
+      ]
+    },
+    {
+      "id": "room.list",
+      "des": "路段列表",
+      "url": "/FHOneMapser/api/test/pipeline/ListOfDetectionCommQuery",
+      "queryParams": [
+        {
+          "key": "pageSize"
+        },
+        {
+          "key": "pageNo"
+        },
+        {
+          "key": "keyword"
+        }
+      ]
+    },
+    {
+      "id": "report.list",
+      "des": "报告列表（TODO:目前只是把服务写好了，需要更换地址)",
+      "url": "http://test.cityfun.com.cn/FHOneMapser/api/test/pipeline/ListOfDetectionWayQuery",
+      "queryParams": [
+        {
+          "key": "pageSize"
+        },
+        {
+          "key": "pageNo"
+        },
+        {
+          "key": "keyword"
+        }
+      ]
+    }
+  ]
+}
