@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~9.1.11",
     "@angular/router": "~9.1.11",
     "@antv/g2": "^4.0.12",
+    "@cmss/core": "^8.6.0",
     "chaikin-smooth": "^1.0.4",
     "cheerio": "^1.0.0-rc.3",
     "insert-css": "^2.0.0",

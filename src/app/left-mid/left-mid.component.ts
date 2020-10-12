@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 // 引入地图服务需要载入的包(必须要存在的四要素+css)
 import 'ol/ol.css';
@@ -14,10 +14,24 @@ import TileArcGISRest from 'ol/source/TileArcGISRest';
   templateUrl: './left-mid.component.html',
   styleUrls: ['./left-mid.component.scss']
 })
-export class LeftMidComponent implements OnInit {
+export class LeftMidComponent implements OnInit, OnDestroy {
 
+  data = '';
+  subscriptions = [];
   constructor() { }
 
   ngOnInit() {
+    postal
+    .channel('SHOW_CHINNEL').
+    subscribe('something_msg', (res: string) => {
+      this.data = res;
+    });
+  }
+
+
+  ngOnDestroy(){
+    this.subscriptions.forEach(element => {
+      element.unsubscribe();
+    })
   }
 }

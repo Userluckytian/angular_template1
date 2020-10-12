@@ -14,7 +14,7 @@ import { LeftMidComponent } from './left-mid/left-mid.component';
 import { LeftBottomComponent } from './left-bottom/left-bottom.component';
 
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
     LeftUpComponent,
     MidBottomComponent,

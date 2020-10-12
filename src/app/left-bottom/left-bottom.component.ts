@@ -12,4 +12,10 @@ export class LeftBottomComponent implements OnInit {
   ngOnInit() {
   }
 
+  showMsg(){
+    const msg = 'hello postal!';
+    postal
+    .channel('SHOW_CHINNEL')
+    .publish('something_msg', msg);
+  }
 }
