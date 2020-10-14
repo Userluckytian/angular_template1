@@ -5,7 +5,7 @@ import { BoxmapComponent } from './boxmap.component';
 const routes: Routes = [
   {
     path: '',
-    component: BoxmapComponent
+    component: BoxmapComponent,
   },
 ];
 

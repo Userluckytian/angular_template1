@@ -9,8 +9,12 @@ const routes: Routes = [
     loadChildren: () => import('./overview/overview.module').then(m => m.OverviewModule),
   },
   {
-    path: 'mapboxmap',
+    path: 'mapquery',
     loadChildren: () => import('./boxmap/boxmap.module').then(m => m.BoxmapModule),
+  },
+  {
+    path: 'mapstatic',
+    loadChildren: () => import('./mapstatic/mapstatic.module').then(m => m.MapstaticModule),
   },
 ];
 

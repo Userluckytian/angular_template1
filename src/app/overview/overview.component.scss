@@ -1,43 +1,4 @@
-.title{
-    height: 60px;
-    width: 100%;
-    min-width: 1000px;
-    background-image: linear-gradient(#4F7DFC,#668BF1);
-    display: flex;
-    justify-content: space-between;
-    //粘性
-    position: sticky;
-    top:0;
-    z-index: 999;
-    .title-left{
-        display: flex;
-        width: 664px;
-        .left1{
-            width: 320px;
-            height: 48px;
-            margin: 6px 0px 0px 20px;
-        }
-        .left2{
-            
-            
-            ul li::before{
-                content:'\260E';
-                font-size: 15px;
-                margin-right: 2px;
-            }
-        }
 
-    }
-    .title-right{
-        width: 180px;
-        margin-right: 20px;
-        ul li span::before{
-            content:'\260E';
-            font-size: 15px;
-            margin-left: 2px;
-        }
-    }
-}
 
 .content{
     padding: 28px 30px;

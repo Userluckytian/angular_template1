@@ -7,21 +7,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./overview.component.scss']
 })
 export class OverviewComponent implements OnInit {
-  data = ['overview', 'mapboxmap'];
 
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngOnInit() {
   }
 
-
-
-  routerTo(index) {
-    const navTo = './' + this.data[index];
-    this.router.navigate([navTo], {
-      queryParams: {
-        id: index
-      }
-    });
-  }
 }
