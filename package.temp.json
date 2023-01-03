@@ -4,7 +4,7 @@
   "author": "<%= author %>",
   "description":"<%= description %>",
   "private":"<%= private %>",
-  "license":"<%= license %>"
+  "license":"<%= license %>",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open --port 4010",
