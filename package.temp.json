@@ -1,7 +1,7 @@
 {
   "name": "project3",
   "version": "0.0.0",
-  "author":"<%= author %>",
+  "author": "<%= author %>",
   "description":"<%= description %>",
   "private":"<%= private %>",
   "license":"<%= license %>"
@@ -13,7 +13,6 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~9.1.11",
     "@angular/common": "~9.1.11",
